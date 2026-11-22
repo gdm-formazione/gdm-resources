@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GDM Resources</title>
+<meta name="description" content="Strumenti pubblici di Gente di Mare S.r.l. · Public tools by Gente di Mare S.r.l.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F7FB; --card:#FFFFFF; --ink:#0B2E4F; --text:#22364A; --muted:#6B7A89; --line:#D9E1E8;
+  --accent:#017EC1; --accent-ink:#FFFFFF; --eyebrow:#0A6FAD;
+  --green:#00A54F; --red:#D1242A; --flag-mid:#D9E1E8;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0B1B2C; --card:#12283E; --ink:#FFFFFF; --text:#CFE6F5; --muted:#9FB6CC; --line:#23405C;
+    --accent:#4FA9E0; --accent-ink:#0B1B2C; --eyebrow:#4FA9E0; --flag-mid:#FFFFFF;}
+}
+:root[data-theme="dark"]{--bg:#0B1B2C; --card:#12283E; --ink:#FFFFFF; --text:#CFE6F5; --muted:#9FB6CC; --line:#23405C;
+  --accent:#4FA9E0; --accent-ink:#0B1B2C; --eyebrow:#4FA9E0; --flag-mid:#FFFFFF;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Open Sans",system-ui,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:40px 16px 64px}
+header{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:40px}
+.logo{height:56px;width:auto}
+.logo.dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo.light{display:none}:root:not([data-theme="light"]) .logo.dark{display:block}}
+:root[data-theme="dark"] .logo.light{display:none}
+:root[data-theme="dark"] .logo.dark{display:block}
+h1{font:800 32px/1.15 Montserrat,sans-serif;color:var(--ink);margin:0}
+.sub{color:var(--muted);margin:4px 0 0}
+.eyebrow{display:flex;align-items:center;gap:12px;font:700 13px Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--eyebrow);margin:0 0 16px}
+.flag{display:inline-flex;width:42px;height:4px;border-radius:2px;overflow:hidden}
+.flag i{flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.card h2{font:700 19px/1.3 Montserrat,sans-serif;color:var(--ink);margin:0}
+.card p{margin:0;font-size:15px}
+.meta{font-size:13px;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.links a{font-weight:600;font-size:14px;text-decoration:none;border-radius:8px;padding:8px 16px;border:1px solid var(--accent);color:var(--accent)}
+.links a.primary{background:var(--accent);color:var(--accent-ink)}
+.links a:hover{filter:brightness(1.08)}
+.links a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+footer{margin-top:48px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo light" src="assets/gdm-logo-trasp.png" alt="Gente di Mare">
+    <img class="logo dark" src="assets/gdm-logo-bianco.png" alt="Gente di Mare">
+    <div>
+      <h1>GDM Resources</h1>
+      <p class="sub">Strumenti pubblici di Gente di Mare S.r.l. · Public tools by Gente di Mare S.r.l.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="eyebrow"><span class="flag"><i style="background:var(--green)"></i><i style="background:var(--flag-mid)"></i><i style="background:var(--red)"></i></span>Simulatori d'esame · Exam simulators</div>
+    <div class="grid">
+      <article class="card">
+        <h2>IECEx Unit Ex 001 – Basics of explosion protection</h2>
+        <p>Simulatore d'esame con domande a scelta multipla e aperte, spiegazioni e risultati per argomento. · Practice exam with multiple-choice and open questions, explanations and results by topic.</p>
+        <div class="meta">104 + 18 domande / questions · soglia / pass mark 75 %</div>
+        <div class="links">
+          <a class="primary" href="simulators/iecex-ex001/it/" hreflang="it">Italiano</a>
+          <a href="simulators/iecex-ex001/en/" hreflang="en">English</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer>© Gente di Mare S.r.l. · I progressi dei simulatori restano solo nel tuo browser. · Simulator progress is stored only in your browser.</footer>
+</div>
+</body>
+</html>
