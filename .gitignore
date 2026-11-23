@@ -1,2 +1,5 @@
 .DS_Store
 .claude/
+
+# Working material for the simulators (e.g. photos of questions): never publish
+simulators/*/assets/
