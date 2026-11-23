@@ -126,7 +126,7 @@ const BANKS = {
             { id: "mc", mc: Infinity, op: 0 }, { id: "open", mc: 0, op: Infinity }]
   },
   exam: {
-    data: IECEX_BANKS.exam, isNew: true, note: "",
+    data: IECEX_BANKS.exam, isNew: false, note: "",
     store: LANG === "it" ? "iecex001_exam_session_v1" : "iecex001_exam_session_en_v1",
     modes: [{ id: "exam62", mc: 44, op: 18 }, { id: "all", mc: Infinity, op: Infinity },
             { id: "mc", mc: Infinity, op: 0 }, { id: "open", mc: 0, op: Infinity }]

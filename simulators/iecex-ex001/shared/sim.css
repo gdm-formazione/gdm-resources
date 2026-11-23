@@ -49,7 +49,7 @@ h1,h2,h3,.mont{font-family:Montserrat,system-ui,sans-serif}
 .tricolour i:nth-child(1){background:#00A54F}.tricolour i:nth-child(2){background:#D9E1E8}.tricolour i:nth-child(3){background:#D1242A}
 
 /* ---------- building blocks ---------- */
-main{padding:28px 0 64px}
+main.wrap{padding-top:28px;padding-bottom:64px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
 .eyebrow{display:flex;align-items:center;gap:12px;font:700 12.5px Montserrat,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--eyebrow);margin:0 0 12px}
 .flag{display:inline-flex;width:34px;height:4px;border-radius:2px;overflow:hidden;flex:none}
@@ -111,7 +111,7 @@ input[type=number]{width:110px;padding:9px 11px;border:1px solid var(--line);bor
 .startbar .info{font-size:14px;color:var(--muted);flex:1;min-width:200px}
 
 /* ---------- quiz ---------- */
-.qtop{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;margin:-12px 0 14px;border-bottom:1px solid var(--line)}
+.qtop{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;margin:0 0 14px;border-bottom:1px solid var(--line)}
 .qtop .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .qtop .bankname{font:700 14px Montserrat,sans-serif;color:var(--ink);margin-right:auto}
 .stat{display:inline-flex;align-items:baseline;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12.5px;color:var(--muted)}
