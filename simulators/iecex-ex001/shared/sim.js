@@ -118,7 +118,7 @@ const STR = {
 }[LANG];
 
 /* ---------- banks ---------- */
-const BANKS = {
+const BANK_DEFS = {
   course: {
     data: IECEX_BANKS.course, isNew: false, note: STR.noteCourse,
     store: LANG === "it" ? "iecex001_session_v1" : "iecex001_session_en_v1",
@@ -132,6 +132,9 @@ const BANKS = {
             { id: "mc", mc: Infinity, op: 0 }, { id: "open", mc: 0, op: Infinity }]
   }
 };
+// Only the banks whose script is loaded on the page are offered.
+const BANKS = Object.fromEntries(Object.entries(BANK_DEFS).filter(([, b]) => b.data));
+const MULTI = Object.keys(BANKS).length > 1;
 const EXAM_MODES = ["exam62", "exam94"];
 const PREF = "iecex001_pref_bank";
 const LET = "ABCD";
@@ -150,7 +153,7 @@ function loadSession(bankId) { try { return JSON.parse(lsGet(BANKS[bankId].store
 const flag = '<span class="flag"><i></i><i></i><i></i></span>';
 
 /* ---------- state ---------- */
-let cfg = { bank: BANKS[lsGet(PREF)] ? lsGet(PREF) : "exam", mode: "exam62", fb: "instant", timer: 0, topics: null };
+let cfg = { bank: BANKS[lsGet(PREF)] ? lsGet(PREF) : (BANKS.exam ? "exam" : "course"), mode: "exam62", fb: "instant", timer: 0, topics: null };
 let S = null, tick = null;
 const bank = () => BANKS[S ? S.bank : cfg.bank];
 const B = () => bank().data;
@@ -212,19 +215,22 @@ function renderSetup() {
   };
   const allOn = cfg.topics.size === Object.keys(D.topics).length;
 
+  const resumeBox = canResume ? `<div class="resume"><span>${STR.resumeTxt(sv.items.length, sv.st.filter(s => s.status !== "new").length)}</span><button class="btn" id="resumeBtn">${STR.resume}</button></div>` : "";
+  let step = 0; const nextStep = () => ++step;
   $("#setup").innerHTML = `
-  <div class="card">
-    <p class="eyebrow">${flag}1 · ${STR.step1}</p>
+  ${MULTI ? `<div class="card">
+    <p class="eyebrow">${flag}${nextStep()} · ${STR.step1}</p>
     <div class="banks" role="radiogroup" aria-label="${STR.step1}">${Object.keys(BANKS).map(bankCard).join("")}</div>
-    ${canResume ? `<div class="resume"><span>${STR.resumeTxt(sv.items.length, sv.st.filter(s => s.status !== "new").length)}</span><button class="btn" id="resumeBtn">${STR.resume}</button></div>` : ""}
-  </div>
+    ${resumeBox}
+  </div>` : ""}
   <div class="card">
-    <p class="eyebrow">${flag}2 · ${STR.step2}</p>
+    <p class="eyebrow">${flag}${nextStep()} · ${STR.step2}</p>
+    ${MULTI ? "" : resumeBox.replace('class="resume"', 'class="resume" style="margin:0 0 14px"')}
     <div class="modes" role="radiogroup" aria-label="${STR.step2}">${bk.modes.map(modeCard).join("")}</div>
     ${bk.note ? `<div class="note" style="margin-top:14px">${bk.note}</div>` : ""}
   </div>
   <div class="card">
-    <p class="eyebrow">${flag}3 · ${STR.step3}</p>
+    <p class="eyebrow">${flag}${nextStep()} · ${STR.step3}</p>
     <div class="options">
       <div class="field"><span class="lbl">${STR.feedback}</span>
         <div class="seg" id="fbSeg"><button data-v="instant" class="${cfg.fb === "instant" ? "on" : ""}">${STR.fbInstant}</button><button data-v="end" class="${cfg.fb === "end" ? "on" : ""}">${STR.fbEnd}</button></div>

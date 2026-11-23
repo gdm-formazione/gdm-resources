@@ -18,16 +18,16 @@ simulators/<nome>/shared/        file comuni alle due lingue (stile, codice, ban
 
 | Risorsa | Percorso | Corso in `gdm-formazione` |
 |---|---|---|
-| Simulatore IECEx Unit Ex 001 (due simulazioni: banco del corso 104 + 18, prova d'esame 77 + 18) | `simulators/iecex-ex001/` | `corsi/atex-iecex/` |
+| Simulatore IECEx Unit Ex 001 (banco del corso, 104 + 18 domande) | `simulators/iecex-ex001/` | `corsi/atex-iecex/` |
 
 ## Aggiungere o modificare una risorsa
 
 - Ogni risorsa è HTML, CSS e JavaScript statici: niente build, niente dipendenze. Si modificano direttamente i file.
-- Il simulatore Ex 001 ha le pagine `it/` ed `en/` ridotte a un guscio: l'interfaccia è in `shared/sim.js` (testi IT ed EN nell'oggetto `STR`), lo stile in `shared/sim.css` (palette e font delle presentazioni GDM), le domande in `shared/bank-course.js` e `shared/bank-exam.js`. Domande, opzioni e risposte modello sono in inglese; spiegazioni e argomenti hanno il testo `{it, en}`.
+- Il simulatore Ex 001 ha le pagine `it/` ed `en/` ridotte a un guscio: l'interfaccia è in `shared/sim.js` (testi IT ed EN nell'oggetto `STR`), lo stile in `shared/sim.css` (palette e font delle presentazioni GDM), le domande in un file per banco (`shared/bank-course.js`); il simulatore offre la scelta tra le simulazioni solo se nella pagina è caricato più di un banco. Domande, opzioni e risposte modello sono in inglese; spiegazioni e argomenti hanno il testo `{it, en}`.
 - Una risorsa nuova va in `simulators/<nome>/` (o in una nuova cartella di primo livello per un altro tipo di strumento), con le cartelle `it/` ed `en/`, e va aggiunta come card in `index.html` e nella tabella qui sopra.
 - Ogni pagina ha in alto il link all'altra lingua (`../en/`, `../it/`) e il badge che riporta alla pagina iniziale (`../../../`).
 - **IT ed EN vanno tenuti allineati**: una modifica a una lingua si riporta nell'altra (per il simulatore Ex 001: entrambi i campi `it` ed `en` della spiegazione e entrambe le voci di `STR`). Testi EN in inglese britannico.
-- Le pagine salvano i progressi in `localStorage`; tutte le pagine di `gdm-formazione.github.io` condividono lo stesso spazio, quindi ogni pagina usa una chiave propria (es. `iecex001_session_v1` e `iecex001_exam_session_v1` per le due simulazioni in italiano, con `_en_` per l'inglese).
+- Le pagine salvano i progressi in `localStorage`; tutte le pagine di `gdm-formazione.github.io` condividono lo stesso spazio, quindi ogni pagina usa una chiave propria (es. `iecex001_session_v1` per il banco del corso in italiano, `iecex001_session_en_v1` in inglese).
 - Font da Google Fonts; nessun altro script o risorsa esterna.
 
 ## Pubblicare
@@ -37,6 +37,7 @@ Un commit su `main` e `git push`: GitHub Pages aggiorna il sito in circa un minu
 ## Note per gli agenti (Claude Code e simili)
 
 - Si risponde all'utente in italiano; codice e commenti del codice in inglese.
-- Il repo è pubblico: non aggiungere materiale dei corsi, dati personali, segreti o file di lavoro. Nel dubbio chiedere. Il materiale di lavoro da cui si costruiscono i banchi (per esempio le foto delle domande d'esame) sta nel repo privato `gdm-formazione` (`corsi/atex-iecex/fonti/`), non qui. Per sicurezza le cartelle `simulators/*/assets/` sono ignorate da git.
+- Il repo è pubblico: non aggiungere materiale dei corsi, dati personali, segreti o file di lavoro. Nel dubbio chiedere. Il materiale di lavoro da cui si costruiscono i banchi sta nel repo privato `gdm-formazione`, non qui; per sicurezza le cartelle `simulators/*/assets/` sono ignorate da git.
+- I banchi contengono solo domande scritte da GDM sulle norme e sul materiale dei corsi: **mai domande di sessioni d'esame reali, nemmeno riformulate**, né raccolte di domande «d'esame» trovate online.
 - Non fare `git push` senza conferma dell'utente.
 - I commit usano l'email noreply di GitHub (configurata in `.git/config` del repo).
