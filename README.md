@@ -1,7 +1,7 @@
 # GDM Resources
 
 Strumenti pubblici di Gente di Mare S.r.l. (simulatori d'esame e simili), pubblicati con GitHub Pages:
-https://scarayaa.github.io/gdm-resources/
+https://gdm-formazione.github.io/gdm-resources/
 
 **Questo repo è pubblico.** Contiene solo materiale pensato per essere visto da chiunque. Dispense, fonti, kit docente e sorgenti dei corsi stanno nel repo privato `gdm-formazione` e non vanno copiati qui.
 
@@ -25,7 +25,7 @@ simulators/<nome>/en/index.html  stesso simulatore, versione inglese
 - Una risorsa nuova va in `simulators/<nome>/` (o in una nuova cartella di primo livello per un altro tipo di strumento), con le cartelle `it/` ed `en/`, e va aggiunta come card in `index.html` e nella tabella qui sopra.
 - Ogni pagina ha in alto il link all'altra lingua (`../en/`, `../it/`) e il badge che riporta alla pagina iniziale (`../../../`).
 - **IT ed EN vanno tenuti allineati**: una modifica a una lingua si riporta nell'altra. Testi EN in inglese britannico.
-- Le pagine salvano i progressi in `localStorage`; tutte le pagine di `scarayaa.github.io` condividono lo stesso spazio, quindi ogni pagina usa una chiave propria (es. `iecex001_session_v1`, `iecex001_session_en_v1`).
+- Le pagine salvano i progressi in `localStorage`; tutte le pagine di `gdm-formazione.github.io` condividono lo stesso spazio, quindi ogni pagina usa una chiave propria (es. `iecex001_session_v1`, `iecex001_session_en_v1`).
 - Font da Google Fonts; nessun altro script o risorsa esterna.
 
 ## Pubblicare
