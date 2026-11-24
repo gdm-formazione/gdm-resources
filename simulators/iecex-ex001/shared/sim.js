@@ -12,7 +12,7 @@ const STR = {
     step1: "Scegli la simulazione", step2: "Modalità", step3: "Opzioni",
     banks: {
       course: { tag: "Simulazione 1", name: "Banco del corso", desc: "Domande costruite sul materiale del corso, con spiegazioni e fonti." },
-      exam: { tag: "Simulazione 2", name: "Prova d'esame", desc: "Domande nello stile dell'esame Ex 001: 44 a scelta singola e 18 aperte, con spiegazioni." }
+      exam: { tag: "Simulazione 2", name: "Prova d'esame", desc: "Domande originali sul programma ufficiale dell'unità (IECEx OD 504), nel formato d'esame 44 + 18, con estrazione proporzionale per argomento." }
     },
     newBadge: "Nuova", mcN: "a scelta multipla", opN: "aperte",
     resumeTxt: (n, d) => `Hai una sessione in corso su questo banco: ${d} di ${n} domande completate.`, resume: "Riprendi",
@@ -67,7 +67,7 @@ const STR = {
     step1: "Choose the simulation", step2: "Mode", step3: "Options",
     banks: {
       course: { tag: "Simulation 1", name: "Course question bank", desc: "Questions built on the course material, with explanations and sources." },
-      exam: { tag: "Simulation 2", name: "Exam-style test", desc: "Questions in the style of the Ex 001 exam: 44 single choice and 18 open-ended, with explanations." }
+      exam: { tag: "Simulation 2", name: "Exam-style test", desc: "Original questions on the official unit syllabus (IECEx OD 504), in the 44 + 18 exam format, drawn in proportion to each topic." }
     },
     newBadge: "New", mcN: "multiple choice", opN: "open",
     resumeTxt: (n, d) => `You have a session in progress on this bank: ${d} of ${n} questions done.`, resume: "Resume",
@@ -127,7 +127,7 @@ const BANK_DEFS = {
   },
   exam: {
     data: IECEX_BANKS.exam, isNew: false, note: "",
-    store: LANG === "it" ? "iecex001_exam_session_v1" : "iecex001_exam_session_en_v1",
+    store: LANG === "it" ? "iecex001_exam_session_v2" : "iecex001_exam_session_en_v2", stratify: true,
     modes: [{ id: "exam62", mc: 44, op: 18 }, { id: "all", mc: Infinity, op: Infinity },
             { id: "mc", mc: Infinity, op: 0 }, { id: "open", mc: 0, op: Infinity }]
   }
@@ -268,7 +268,18 @@ function startSession(list) {
   let items;
   if (list) items = list;
   else {
-    const pick = (arr, n) => shuffle(arr.map((x, i) => i).filter(i => cfg.topics.has(arr[i].t))).slice(0, n === Infinity ? undefined : n);
+    const pool = arr => arr.map((x, i) => i).filter(i => cfg.topics.has(arr[i].t));
+    // Stratified draw: each topic gets a share of n proportional to its size in the pool (largest remainder).
+    const strat = (arr, n) => {
+      const ids = pool(arr), byT = {};
+      ids.forEach(i => (byT[arr[i].t] = byT[arr[i].t] || []).push(i));
+      const quota = Object.entries(byT).map(([t, l]) => ({ l: shuffle(l), x: l.length / ids.length * n }));
+      quota.forEach(o => { o.k = Math.floor(o.x); });
+      let left = n - quota.reduce((a, o) => a + o.k, 0);
+      quota.slice().sort((a, b) => (b.x - b.k) - (a.x - a.k)).forEach(o => { if (left > 0 && o.k < o.l.length) { o.k++; left--; } });
+      return quota.flatMap(o => o.l.slice(0, o.k));
+    };
+    const pick = (arr, n) => (bk.stratify && n !== Infinity && n < pool(arr).length) ? shuffle(strat(arr, n)) : shuffle(pool(arr)).slice(0, n === Infinity ? undefined : n);
     items = [...pick(D.mc, m.mc).map(i => ({ k: "mc", i })), ...pick(D.open, m.op).map(i => ({ k: "op", i }))];
     if (!EXAM_MODES.includes(m.id)) items = shuffle(items);
   }
